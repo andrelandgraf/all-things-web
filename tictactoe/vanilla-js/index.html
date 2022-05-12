@@ -1,0 +1,98 @@
+<html>
+    <style>
+        .table-cell {
+            border: 1px solid black;
+            width: 100px;
+            height: 100px;
+        }
+        .table-cell-button {
+            width: 100%;
+            height: 100%;
+            border: none;
+            background-color: inherit;
+            cursor: pointer;
+        }
+        .table-cell-button:hover {
+            background-color: lightblue;
+        }
+    </style>
+    <body>
+        <table id="root"></table>
+    </body>
+    <script>
+        const tableEle = document.getElementById("root");
+        class TicTacToe {
+            symbol = "X";
+
+            pickXOrORandomly() {
+                this.symbol = Math.random() > 0.5 ? "X" : "O";
+            }
+
+            updateSymbol() {
+                if(this.symbol === "X") {
+                    this.symbol = "O";
+                } else {
+                    this.symbol = "X";
+                }
+            }
+
+            constructor(tableEle) {
+                this.tableEle = tableEle;
+                this.matrix = [];
+                // create empty matrix for game
+                for(let i = 0; i < 3; i++) {
+                    const row = [];
+                    for(let j = 0; j < 3; j++) {
+                        row.push('');
+                    }
+                    this.matrix.push(row);
+                }
+                // pick first value random
+                this.pickXOrORandomly();
+            }
+
+            click(i, j) {
+                this.matrix[i][j] = this.symbol;
+                this.draw();
+                this.updateSymbol();
+            }
+
+            /*
+             * Notice how painful it is to create dynamic HTML elements based on our game state?
+             * Not to mention how unperformant our implementation is - 
+             * We completly repalce the entire subtree! And we do so on every user interaction!
+             * That's where React and the virtual DOM come into play!
+            */
+            draw() {
+                let str = "";
+                for(let i = 0; i < this.matrix.length; i++) {
+                    const row = this.matrix[i];
+                    str += "<tr>"
+                    for(let j = 0; j < row.length; j++) {
+                        const cell = row[j];
+                        if(cell === "") {
+                            str += 
+                            `<td class="table-cell">
+                            <button aria-label="place x or o" class="table-cell-button" id="${`table-cell-btn-${i}${j}`}"></button>
+                            </td>`
+                        } else {
+                            str += `<td class="table-cell">${cell}</td>`
+                        }   
+                    }
+                    str += "</tr>"
+                }
+                this.tableEle.innerHTML = str;
+                for(let i = 0; i < this.matrix.length; i++) {
+                    for(let j = 0; j < this.matrix[i].length; j++) {
+                        const btnEle = document.getElementById(`table-cell-btn-${i}${j}`);
+                        if(btnEle) {
+                            btnEle.addEventListener("click", () => this.click(i, j));
+                        }
+                    }
+                }
+            }
+        }
+        const game = new TicTacToe(tableEle);
+        game.draw();
+    </script>
+</html>
