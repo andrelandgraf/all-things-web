@@ -1,0 +1,109 @@
+<html>
+    <head>
+        <style>
+            * {
+                box-sizing: border-box;
+                /* just resets of annoying defaults */
+                margin: 0;
+                padding: 0;
+            }
+            ul {
+                /* just resets of annoying defaults */
+                margin-block-start: 0;
+                margin-block-end: 0;
+                margin-inline-start: 0;
+                margin-inline-end: 0;
+                padding-inline-start: 0;
+            }
+            li {
+                /* just resets of annoying defaults */
+                list-style: none;
+                list-style-position: inside;
+            }
+            h1 {
+                margin-bottom: 10px;
+            }
+            button {
+                /* this is clickable - show it to user through the pointer crusor */
+                cursor: pointer;
+            }
+            .hidden {
+                /* our reusable toggle hidden class */
+                display: none;
+            }
+            .padding-left {
+                /* reusable utility-class for uniform alignment */
+                padding-left: 20px;
+            }
+            .padding-top {
+                /* reusable utility-class for uniform alignment */
+                padding-top: 10px;
+            }
+            .navbar {
+                position: fixed;
+                display: flex;
+                align-items: center;
+                border-bottom: 1px solid gray;
+                height: 50px;
+                width: 100%;
+            }
+            .sidebar {
+                position: fixed;
+                display: flex;
+                gap: 10px;
+            }
+            .sidebar__list {
+                display: block;
+                border: 1px solid gray;
+                padding: 10px;
+                height: 100vh;
+                background: white;
+            }
+            .main-content {
+                padding-top: 100px;
+            }
+        </style>
+    </head>
+    <body>
+        <nav class="navbar padding-left">
+            <!-- Button for open sidebar -->
+            <button id="open-sidebar-btn" aria-label="Open Sidebar">
+                🍔
+            </button>
+        </nav>
+        <!-- Notice that sidebar starts with hidden -->
+        <nav id="sidebar" class="sidebar hidden">
+            <ul class="sidebar__list padding-left">
+                <li><a href="/">Homepage</a></li>
+            </ul>
+            <div class="btn-container padding-top">
+                <!-- Button for close sidebar -->
+                <button id="close-sidebar-btn" aria-label="Close Sidebar">
+                    ❌
+                </button>
+            </div>
+        </nav>
+        <main class="main-content padding-left">
+            <h1>Homepage</h1>
+            <p>
+                Welcome to my homepage!
+                <br />
+                Click on the burger icon to open the menu!
+            </p>
+        </main>
+    </body>
+    <script>
+        // get DOM elements
+        const sidebar = document.getElementById("sidebar");
+        const openSidebarBtn = document.getElementById("open-sidebar-btn");
+        const closeSidebarBtn = document.getElementById("close-sidebar-btn");
+        // create reusable function for toggling classes
+        function toggleSidebar() {
+            sidebar.classList.toggle("hidden");
+            openSidebarBtn.classList.toggle("hidden");
+        }
+        // add event listeners to both open and close buttons
+        openSidebarBtn.addEventListener("click", toggleSidebar);
+        closeSidebarBtn.addEventListener("click", toggleSidebar);
+    </script>
+</html>
