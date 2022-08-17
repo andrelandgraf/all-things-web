@@ -1,6 +1,12 @@
 # All Things Web
 
-This is the repository of the [All Things Web - React and HTML, CSS, JavaScript Tutoring](https://www.meetup.com/all-things-web-react-html-css-javascript-tutoring/) - Meetup group!
+This is the repository of the [All Things Web - React and React and HTML, CSS, & JavaScript Tutoring Tutoring](https://www.meetup.com/all-things-web-react-html-css-javascript-tutoring/) - Meetup group!
+
+## About this repository
+
+The folders are ordered by tutoring session. #1 is added for the first session, #2 is added for the second session, etc.
+
+Each folder includes a set of files and a `README.md` file regarding one specific topic. I hope this helps us to find content by tutoring session and topic alike.
 
 ## About the Tutoring Group
 

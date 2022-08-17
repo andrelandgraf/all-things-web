@@ -1,0 +1,22 @@
+
+* {
+    box-sizing: border-box;
+}
+
+.heading-one {
+    font-size: 50px;
+    color: red;
+}
+
+.button {
+    background-color: gray;
+    padding: 10px;
+}
+
+.button-primary {
+    background-color: yellow;
+}
+
+.margin-right {
+    margin-right: 10px;
+}
