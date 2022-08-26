@@ -1,9 +1,9 @@
-console.log("Hello 🌎");
-
+// this is our fake react, you can use it to build many apps
 class FakeReact {
   constructor() {
     this.registeredThings = [];
     this.state = {};
+    this.currentStateIdCounter = 0;
   }
   registerClick(id, func) {
     this.registeredThings.push([id, func]);
@@ -26,25 +26,28 @@ class FakeReact {
     this.registeredThings = [];
   }
   rerender() {
+    this.currentStateIdCounter = 0;
     this.deregisterClicks();
     this.element.innerHTML = this.RootComponent();
     this.registerClicks();
     console.log("THE Mysterious React state", this.state)
   }
- useState(id, defaultValue) {
-     console.log(id, defaultValue)
-    if(this.state[id]) {
-      console.log(`omg found!!! ${id}`)
-      return this.state[id];
+ useState(defaultValue) {
+   let stateId = this.currentStateIdCounter + 1 // App-0 App-1
+   this.currentStateIdCounter = stateId
+
+    if(this.state[stateId]) {
+      console.log(`omg found!!! ${stateId}`)
+      return this.state[stateId];
     }
     let value = defaultValue;
     let self = this;
     function setValue(newValue) {
-      const [lastValue, func] = self.state[id] 
-      self.state[id] = [newValue, func]
+      const [lastValue, func] = self.state[stateId] 
+      self.state[stateId] = [newValue, func]
       self.rerender();
     }
-    this.state[id] = [value, setValue]
+    this.state[stateId] = [value, setValue]
     return [value, setValue];
   }
   render(id, RootComponent) {
@@ -59,16 +62,17 @@ class FakeReact {
 
 const React = new FakeReact();
 
+// this is the app code you write using FakeReact
 function App() {  
-  const [addValue, setAddValue] = React.useState("state-1", 0);
-  const [substractValue, setSubstractValue] = React.useState("state-2", 0);
-  
+  const [addValue, setAddValue] = React.useState(0);
+  const [substractValue, setSubstractValue] = React.useState(0);
+
   const addOneToValue = () => {
     setAddValue(addValue + 1);
   }
   
   const substractOneFromValue = () => {
-    setSubstractValue(substractValue - 1);
+    setSubstractValue(substractValue - 1)
   }
 
   return `
@@ -102,5 +106,6 @@ function Button({ id, onClick, value, isPrimary = false, classes = "" }) {
   ${value}
   </button>`
 }
+
 
 React.render('app', App)
